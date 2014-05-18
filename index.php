@@ -14,7 +14,8 @@ if(!empty($_GET['automated'])) {
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
-  <script type="text/javascript" src="./js/jquery1.9.1.min.js"></script>  
+  <script type="text/javascript" src="./js/jquery1.9.1.min.js"></script>
+  	<script type="text/javascript" src="./js/ifvisible.js"></script>
   <?php //<script type="text/javascript" src="./js/jquery.confirmon.js"></script>?>
   <script type="text/javascript">
 		if (window.navigator.standalone) {
@@ -196,11 +197,9 @@ if(!empty($_GET['automated'])) {
 			}
 		}
 
-		if($hasprocess == 0) {
-			echo "<li class='title'><span class='label'><b>start Encoding DVD:</b></span><span class='label'><b>start Encoding BR:</b></span></li>";
-		}		
+	
 		
-		$hasprocess = 0;
+		$waitingforencode = 0;
 		foreach($foldernames as $thefolder) {
 			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
 			$folderpath = $autorip . "/$thefolder";
@@ -215,9 +214,14 @@ if(!empty($_GET['automated'])) {
 					$file = substr($file, strrpos($file, "/") + 1);
 					$file = str_replace(".identity","",$file);
 				 }					
-				$hasprocess++;
-				if($hasprocess == 1) {
-					echo "<li class='title'><span class='label'><b>Waiting for Encoding:</b></span></li>";
+				$waitingforencode++;
+				if($waitingforencode == 1) {
+					echo "<li class='title'><span class='label'><b>Waiting for Encoding:</b></span>";
+					if($hasprocess == 0) {
+						echo "<a href='#' onclick='ashowpossibles(\"$thefolder\",\"$thesubfolder\");' class='on-off-toggle'>Start DVD Encoding</a><a href='#' onclick='ashowpossibles(\"$thefolder\",\"$thesubfolder\");' class='on-off-toggle'>Start BR Encoding</a>";
+						//echo "<li class='title'><span class='label'><b>start Encoding DVD:</b></span><span class='label'><b>start Encoding BR:</b></span></li>";
+					}
+					echo "</li>";
 				}
 				echo "<li><span class='label'>$thefolder/$file</span>";
 				echo "<img src='./img/green-tick.png' title='Identified'/>";
@@ -383,7 +387,33 @@ if(!empty($_GET['automated'])) {
         //unloadPopupBox();
 		location.reload();
     });
-	
+
+
+// idle timeout for network pings
+var isIdle = 0;
+function d(el){
+    return document.getElementById(el);
+}
+ifvisible.setIdleDuration(35);
+
+ifvisible.idle(function(){
+	isIdle = 1;
+});
+
+ifvisible.wakeup(function(){
+	isIdle = 0;				
+});
+
+
+	function refreshPage() {
+		if(isIdle == 1) {
+			location.reload();
+		}
+		refreshthepage = setTimeout(refreshPage, 10000);					
+	}
+	refreshthepage = setTimeout(refreshPage, 1000);
+
+
 </script>
 </body>
 </html>
