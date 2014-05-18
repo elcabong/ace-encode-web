@@ -8,84 +8,84 @@ web control for ace-encode
 
 full install instructions:
 
-pre reqs 
-sudo apt-get install git-core git 
-sudo apt-get install abcde
+pre reqs  
+sudo apt-get install git-core git  
+sudo apt-get install abcde 
 
-sudo add-apt-repository ppa:stebbins/handbrake-snapshots 
-sudo apt-get update 
-sudo apt-get install handbrake-cli handbrake-gtk
+sudo add-apt-repository ppa:stebbins/handbrake-snapshots  
+sudo apt-get update  
+sudo apt-get install handbrake-cli handbrake-gtk 
 
-sudo apt-get install build-essential libc6-dev libssl-dev libexpat1-dev libavcodec-dev libgl1-mesa-dev libqt4-dev
+sudo apt-get install build-essential libc6-dev libssl-dev libexpat1-dev libavcodec-dev libgl1-mesa-dev libqt4-dev 
 
-wget http://www.makemkv.com/download/makemkv-bin-1.8.6.tar.gz 
-wget http://www.makemkv.com/download/makemkv-oss-1.8.6.tar.gz 
+wget http://www.makemkv.com/download/makemkv-bin-1.8.6.tar.gz  
+wget http://www.makemkv.com/download/makemkv-oss-1.8.6.tar.gz  
 
-tar xvzf makemkv-oss-1.8.6.tar.gz 
-tar xvzf makemkv-bin-1.8.6.tar.gz 
+tar xvzf makemkv-oss-1.8.6.tar.gz  
+tar xvzf makemkv-bin-1.8.6.tar.gz  
 
-cd makemkv-oss-1.8.6 
-make -f makefile.linux 
-sudo make -f makefile.linux install 
+cd makemkv-oss-1.8.6  
+make -f makefile.linux  
+sudo make -f makefile.linux install  
 
-cd makemkv-bin-1.8.6 
-make -f makefile.linux 
-sudo make -f makefile.linux install 
-
-
-
-
-get ace-encode-web 
-
-sudo apt-get install apache2 
-sudo apt-get install php5 libapache2-mod-php5 php5-curl 
-sudo service apache2 restart 
-
-git clone git://github.com/elcabong/ControlCenter.git /var/www/html/ 
+cd makemkv-bin-1.8.6  
+make -f makefile.linux  
+sudo make -f makefile.linux install  
 
 
 
 
-get ace-encode 
-sudo git clone git://github.com/joelbassett/ACE-Encode.git /usr/bin/ace-encode 
+get ace-encode-web  
 
-cd /usr/bin/ace-encode 
+sudo apt-get install apache2  
+sudo apt-get install php5 libapache2-mod-php5 php5-curl  
+sudo service apache2 restart  
 
-sudo chmod +x ./* $ sudo chown {USERNAME}:{USERNAME} ./* 
-
-cd /usr/bin/ace-encode 
-sudo cp ./autorun/.abcde.conf ~ 
-sudo cp ./autorun/ripcd.desktop /usr/share/applications/ 
-sudo cp ./autorun/ripdvd.desktop /usr/share/applications/ 
-sudo cp ./autorun/ripbluray.desktop /usr/share/applications/ 
-sudo chmod +x ~/.abcde.conf
-sudo chmod +x /usr/share/applications/ripcd.desktop 
-sudo chmod +x /usr/share/applications/ripdvd.desktop 
-sudo chmod +x /usr/share/applications/ripbluray.desktop
+git clone git://github.com/elcabong/ControlCenter.git /var/www/html/  
 
 
-configre ace-encode
 
-sudo nano ./settings.conf
 
-sudo nano ~/.local/share/applications/mimeapps.list 
-And add the following at the bottom of the file:
+get ace-encode  
+sudo git clone git://github.com/joelbassett/ACE-Encode.git /usr/bin/ace-encode  
 
-**************** BEGIN CODE: **************** 
-[Default Applications] 
-x-content/audio-cdda=ripcd.desktop; 
-x-content/video-dvd=ripdvd.desktop; 
-x-content/video-bluray=ripbluray.desktop 
-[Added Associations] 
-x-content/audio-cdda=ripcd.desktop; 
-x-content/video-dvd=ripdvd.desktop; 
-x-content/video-bluray=ripbluray.desktop; 
-***************** END CODE: *****************
+cd /usr/bin/ace-encode  
 
-Save the file and then in Ubuntu go to System Settings > Details > Removable Media and then do the following:
+sudo chmod +x ./* $ sudo chown {USERNAME}:{USERNAME} ./*  
 
-    For CD - Click on the Audio CD drop down, you値l notice our Rip CD program is listed. Choose this as your default.
-    For DVD - Click on the DVD Video Disc drop down, you値l notice our Rip DVD program is listed. Choose this as your default.
-    For BluRay - Click on the Additional Settings button and find the option for Bluray Video Disc, you値l notice our Rip BluRay program is listed. Choose this as your default.
+cd /usr/bin/ace-encode  
+sudo cp ./autorun/.abcde.conf ~  
+sudo cp ./autorun/ripcd.desktop /usr/share/applications/  
+sudo cp ./autorun/ripdvd.desktop /usr/share/applications/  
+sudo cp ./autorun/ripbluray.desktop /usr/share/applications/  
+sudo chmod +x ~/.abcde.conf  
+sudo chmod +x /usr/share/applications/ripcd.desktop  
+sudo chmod +x /usr/share/applications/ripdvd.desktop  
+sudo chmod +x /usr/share/applications/ripbluray.desktop  
+
+
+configre ace-encode  
+
+sudo nano ./settings.conf  
+
+sudo nano ~/.local/share/applications/mimeapps.list  
+And add the following at the bottom of the file:  
+
+**************** BEGIN CODE: ****************  
+[Default Applications]  
+x-content/audio-cdda=ripcd.desktop;  
+x-content/video-dvd=ripdvd.desktop;  
+x-content/video-bluray=ripbluray.desktop  
+[Added Associations]  
+x-content/audio-cdda=ripcd.desktop;  
+x-content/video-dvd=ripdvd.desktop;  
+x-content/video-bluray=ripbluray.desktop;  
+***************** END CODE: *****************  
+
+Save the file and then in Ubuntu go to System Settings > Details > Removable Media and then do the following:  
+
+    For CD - Click on the Audio CD drop down, you値l notice our Rip CD program is listed. Choose this as your default.  
+    For DVD - Click on the DVD Video Disc drop down, you値l notice our Rip DVD program is listed. Choose this as your default.  
+    For BluRay - Click on the Additional Settings button and find the option for Bluray Video Disc, you値l notice our Rip BluRay program is listed. Choose this as your default.  
 
 If all your programs have been installed and set up correctly, you should now be able to insert a disc of your choosing and it will automatically rip the music or movie to your computer.
