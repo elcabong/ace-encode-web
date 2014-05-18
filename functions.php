@@ -24,17 +24,26 @@
 					$thisnewfile = str_replace(".identity","",$file);
 					//echo $thisnewfile."<br>";
 				}
-				if($thisnewfile == $thesubfolder) {continue;}
 				// rename files and folder
 				$files = glob("$autorip/$thefolder/$thesubfolder/*.{mkv,srt}", GLOB_BRACE);
+				$filenum = 0;
 				foreach($files as $file) {
+					$filenum++;
 					$file = substr($file, strrpos($file, "/") + 1);
 					//echo $file."<br>";
 					$newfile = str_replace("$thesubfolder","$thisnewfile",$file);
 					//echo $newfile."<br>";
-				 rename("$autorip/$thefolder/$thesubfolder/$file","$autorip/$thefolder/$thesubfolder/$newfile"); 
+					rename("$autorip/$thefolder/$thesubfolder/$file","$autorip/$thefolder/$thesubfolder/$newfile"); 
 				 }
-
+				 if($filenum == 1) {
+					if(file_exists("$autorip/$thefolder/$thesubfolder/$file")){
+						rename("$autorip/$thefolder/$thesubfolder/$file","$autorip/$thefolder/$thesubfolder/$thisnewfile.mkv"); 
+					}
+				 }
+				 //  if only 1 .mkv then rename file to $thisnewfile
+				 
+				 
+				if($thisnewfile == $thesubfolder) {continue;}
 				rename("$autorip/$thefolder/$thesubfolder/","$autorip/$thefolder/$thisnewfile/");
 			}
 		}
