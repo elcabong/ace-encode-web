@@ -3,14 +3,33 @@ ace-encode-web
 
 web control for ace-encode
 
+creating ripping directory structure:  
+sudo mkdir /data/Ripping/Blackhole/Movies  
+sudo mkdir /data/Ripping/Blackhole/Music  
+sudo mkdir /data/Ripping/Blackhole/TV  
+sudo mkdir /data/Ripping/BR  
+sudo mkdir /data/Ripping/DVD  
+sudo mkdir /data/Ripping/logs/BR  
+sudo mkdir /data/Ripping/logs/DVD  
+sudo mkdir /data/Ripping/Music  
 
 
+set permissions for Ripping folder (2 users need permissions, the user ripping disks and www-data):  
+option 1 (permissions for all):
+sudo chmod -R 0777 /data/Ripping  
+  
+option 2 (specific permissions):  
+sudo chmod -R 0775 /data/Ripping  
+sudo chown -R www-data:www-data /data/Ripping
+sudo usermod -a -G www-data {USERNAME} 
 
+  
 full install instructions:
 
 pre reqs  
 sudo apt-get install git-core git  
-sudo apt-get install abcde 
+sudo apt-get install abcde cd-discid lame cdparanoia id3 id3v2  
+sudo apt-get install eyed3 python3 python3-eyed3  
 
 sudo add-apt-repository ppa:stebbins/handbrake-snapshots  
 sudo apt-get update  
@@ -18,6 +37,7 @@ sudo apt-get install handbrake-cli handbrake-gtk
 
 sudo apt-get install build-essential libc6-dev libssl-dev libexpat1-dev libavcodec-dev libgl1-mesa-dev libqt4-dev 
 
+// replace 1.8.6 below with newest version  
 wget http://www.makemkv.com/download/makemkv-bin-1.8.6.tar.gz  
 wget http://www.makemkv.com/download/makemkv-oss-1.8.6.tar.gz  
 
@@ -41,8 +61,11 @@ sudo apt-get install apache2
 sudo apt-get install php5 libapache2-mod-php5 php5-curl  
 sudo service apache2 restart  
 
-git clone git://github.com/elcabong/ControlCenter.git /var/www/html/  
-
+ubuntu 14+
+git clone git://github.com/elcabong/ace-encode-web.git /var/www/html/  
+  
+ubuntu 13 and prior
+git clone git://github.com/elcabong/ace-encode-web.git /var/www/  
 
 
 
@@ -51,7 +74,8 @@ sudo git clone git://github.com/joelbassett/ACE-Encode.git /usr/bin/ace-encode
 
 cd /usr/bin/ace-encode  
 
-sudo chmod +x ./* $ sudo chown {USERNAME}:{USERNAME} ./*  
+sudo chmod +x ./*  
+sudo chown {USERNAME}:{USERNAME} ./*  
 
 cd /usr/bin/ace-encode  
 sudo cp ./autorun/.abcde.conf ~  
