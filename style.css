@@ -320,6 +320,8 @@ ul.controllerbuttons > li > a > img {
 }
 
 @media screen and (max-width: 721px) and (max-height: 721px) {
+	.popup_box { margin:0;left:0%; }
+
 	.confirmon-box {
 		top:100px;
 	}

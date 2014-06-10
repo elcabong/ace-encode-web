@@ -37,13 +37,46 @@ if(!empty($_GET['automated'])) {
 	<?php
 		$foldernames = scandir($autorip);	
 
-		$ripping = 0;
+		
+		// check if multiple videos exists and place hold
+		$heldmovies = 0;
 		foreach($foldernames as $thefolder) {
 			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
 				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
+				$moviecount = "$autorip/$thefolder/$thesubfolder/*.mkv";
+				if (count(glob($moviecount)) < 2) { continue; }
+				$heldmovies++;
+				if($heldmovies == 1) {
+					echo "<li class='title'><span class='label'><b>Multiple Video Files Found:</b></span></li>";
+				}		
+				$fullpath = "$autorip/$thefolder/$thesubfolder";
+				echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
+				$files = glob("$fullpath/*.mkv");
+				foreach($files as $file) {
+					$file = substr($file, strrpos($file, "/") + 1);
+				 echo "<a href='$fullpath/$file' target='_blank' class='log-file'>$file</a>";
+				 }		
+				echo "</li>";
+
+			
+			}
+		}		
+		
+		
+		
+		
+		$ripping = 0;
+		foreach($foldernames as $thefolder) {
+			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
+			$folderpath = $autorip . "/$thefolder";
+			$subfolders = scandir($folderpath);
+			foreach($subfolders as $thesubfolder) {
+				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				$hasIdentity = 0;
 				$identitycheck = "$autorip/$thefolder/$thesubfolder/*.identity";
@@ -52,6 +85,7 @@ if(!empty($_GET['automated'])) {
 				if($ripping == 1) {
 					echo "<li class='title'><span class='label'><b>Currently Ripping:</b></span></li>";
 				}
+				$thesubfolder = clean("$thesubfolder");
 				if($hasIdentity == 0) {
 					echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
 				} else {
@@ -91,11 +125,12 @@ if(!empty($_GET['automated'])) {
 
 		$needsprocess = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
+			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
 				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
 				$hasIdentity = 0;
@@ -105,6 +140,7 @@ if(!empty($_GET['automated'])) {
 				if($needsprocess == 1) { 
 					echo "<li class='title'><span class='label'><b>Need to Be Identified:</b></span></li>";
 				}
+				$thesubfolder = clean("$thesubfolder");
 				if($hasIdentity == 0) {
 					echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
 				} else {
@@ -145,11 +181,12 @@ if(!empty($_GET['automated'])) {
 
 		$hasprocess = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
+			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
 				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
 				$hasprocess++;
@@ -163,6 +200,7 @@ if(!empty($_GET['automated'])) {
 					$file = substr($file, strrpos($file, "/") + 1);
 					$file = str_replace(".identity","",$file);
 				 }
+				 $thesubfolder = clean("$thesubfolder");
 				if($hasIdentity == 0) {
 					echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
 				} else {
@@ -201,11 +239,12 @@ if(!empty($_GET['automated'])) {
 		
 		$waitingforencode = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
+			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
 				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
 				$identitycheck = "$autorip/$thefolder/$thesubfolder/*.identity";
@@ -272,6 +311,23 @@ if(!empty($_GET['automated'])) {
 			foreach($newsubfolders as $thealbum) {
 				if($thealbum == "." || $thealbum == ".." || $thealbum == "") { continue; }
 				echo "<li><span class='label'>$thesubfolder/$thealbum</span></li>";
+			}
+		}
+
+
+		$blackholecheck = 0;
+		$folderpath = "$autorip/Blackhole";
+		$subfolders = scandir($folderpath);
+		foreach($subfolders as $thesubfolder) {
+			if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+			$newsubfolders = scandir("$folderpath/$thesubfolder");
+			foreach($newsubfolders as $abouttomove) {
+				if($abouttomove == "." || $abouttomove == ".." || $abouttomove == "") { continue; }
+				$blackholecheck++;
+				if($blackholecheck == 1) {
+					echo "<li class='title'><span class='label'><b>Blackhole Directory:</b></span></li>";
+				}
+				echo "<li><span class='label'>$thesubfolder/$abouttomove</span></li>";
 			}
 		}
 		

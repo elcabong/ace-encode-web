@@ -2,6 +2,9 @@
 if(!empty($_GET['data'])) {
 	$thepost = $_GET['data'];
 	$thispost = $thepost;
+	echo $thepost."<br>";
+	$thepost = str_replace("_"," ","$thepost");
+	echo $thepost;
 	$thepost = urlencode($thepost);
 }
 if(!empty($_GET['dir'])) {
@@ -47,7 +50,7 @@ $possiblematches = json_decode($xml, TRUE);
 <div id="overlaybuttons" style="display:block;">
 	<ul id="possiblematches" class="links" style="clear:right;">
 		<?php
-			$subarrays = array('title_popular','title_substring','title_approx');
+			$subarrays = array('title_exact','title_popular','title_substring','title_approx');
 		
 			foreach($subarrays as $title) {
 				for ($i = 0; $i < 50; ++$i) {

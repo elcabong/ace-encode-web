@@ -24,72 +24,8 @@ while(!$found){
 
 
 //functions
-/*
-
-
-
-
-
-
-
-
-
-
-
-function moveEncodedMovie($thedir,$theorigtitle,$thenewtitle) {
-	$files = glob("$autorip/$thedir/$theorigtitle/*.encoded");
-	foreach($files as $file) {
-		$file = substr($file, strrpos($file, "/") + 1);
-		echo $file."<br>";
-		//$newfile = str_replace("$thefolder","$thetitle",$file);
-		//echo $newfile."<br>";
-	 //rename("$autorip/$thedir/$thefolder/$file","$autorip/$thedir/$thefolder/$newfile"); 
-	}
+function clean($string) {
+   //$string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+   return preg_replace('/[^A-Za-z0-9 _\-]/', '', $string); // Removes special chars.
 }
-*/
-
-/*
-
-
-	rename("$autorip/$thedir/$theorigtitle/$theorigtitle","$autorip/$thedir/$thefolder/$newfile"); 
-
-
-
-	move file (renaming to identity) to blackhole directory 
-	remove old folder in ripping directory
-}
-*/
-
-
-/*
-//$files = scandir("$autorip/$thefolder/");
-$files = glob("$autorip/$thedir/$thefolder/*.{mkv,srt}", GLOB_BRACE);
-foreach($files as $file) {
-	$file = substr($file, strrpos($file, "/") + 1);
-	//echo $file."<br>";
-	$newfile = str_replace("$thefolder","$thetitle",$file);
-	//echo $newfile."<br>";
- rename("$autorip/$thedir/$thefolder/$file","$autorip/$thedir/$thefolder/$newfile"); 
- }
-
-rename("$autorip/$thedir/$thefolder/","$autorip/$thedir/$thetitle/");
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ?>
