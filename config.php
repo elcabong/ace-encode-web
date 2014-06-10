@@ -11,7 +11,7 @@ $programtitle = "DiskRipper";
 
 
 // change $path to represent the base directory where the disks are ripped to.
-$path = './data/Ripping';
+$path = './Ripped';
 $found = false;
 while(!$found){
 	if(file_exists($path)){ 
