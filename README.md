@@ -92,8 +92,8 @@ x-content/video-bluray=ripbluray.desktop;
 
 Save the file and then in Ubuntu go to System Settings > Details > Removable Media and then do the following:  
 
-    For CD - Click on the Audio CD drop down, you�ll notice our Rip CD program is listed. Choose this as your default.  
-    For DVD - Click on the DVD Video Disc drop down, you�ll notice our Rip DVD program is listed. Choose this as your default.  
-    For BluRay - Click on the Additional Settings button and find the option for Bluray Video Disc, you�ll notice our Rip BluRay program is listed. Choose this as your default.  
+    For CD - Click on the Audio CD drop down, you'll notice our Rip CD program is listed. Choose this as your default.  
+    For DVD - Click on the DVD Video Disc drop down, you'll notice our Rip DVD program is listed. Choose this as your default.  
+    For BluRay - Click on the Additional Settings button and find the option for Bluray Video Disc, you'll notice our Rip BluRay program is listed. Choose this as your default.  
 
 If all your programs have been installed and set up correctly, you should now be able to insert a disc of your choosing and it will automatically rip the music or movie to your computer.
