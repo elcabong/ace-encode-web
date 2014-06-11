@@ -24,7 +24,7 @@ cd $DVD_OUTPUT_DIR
 DVD_DIR_LIST=( $(find . -maxdepth 1 -type d -printf '%P\n') )
 
 for DVD_TITLE in "${DVD_DIR_LIST[@]}"; do
-	if [ "$DVD_TITLE" != 'logs' ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/$DVD_TITLE.$DVD_EXTENSION.encoded" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/encoding" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/no.encoding" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/rip.completed.hold" ]; then
+	if [ "$DVD_TITLE" != 'logs' ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/$DVD_TITLE.$DVD_EXTENSION.encoded" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/encoding" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/no.encoding" ] && [ ! -f "$DVD_OUTPUT_DIR/$DVD_TITLE/rip.completed.hold" ] && [ -f "$DVD_OUTPUT_DIR/$DVD_TITLE/rip.completed" ]; then
         	# LOG : COMMENCING ENCODE OF THIS DVD
         	echo "*********************************  COMMENCING:  $DVD_TITLE  *********************************" >> $DVD_LOG_DIR/dvd-encode.log
 
