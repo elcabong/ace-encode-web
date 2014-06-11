@@ -1,7 +1,9 @@
 ace-encode-web
 ==============
 
-web control for ace-encode
+web control with ace-encode built in.
+
+this uses MakeMKV for ripping DVD and BluRay discs.  a license will be required (there is a free license available while in beta)
 
   
 full install instructions:
@@ -45,13 +47,34 @@ sudo apt-get install php5 libapache2-mod-php5 php5-curl
 sudo service apache2 restart  
 
 
-git clone git://github.com/elcabong/ace-encode-web.git /var/www/DiskRipper
 
-for ubuntu 14+, or if this is the only web service this server is hosting, you will need to change the default000.conf virtual host to point to this directory, or make a new specific virtual host.  this is because ther eare hard coded paths in the /ace-encode/ files
+make the web and ripping directory.  THIS IS HARD CODED IN THE /ace-encode/ files.  do not change unless you know what you are doing  
 
-sudo nano /etc/apache2/site-available/000-default.conf
+sudo mkdir /var/www/DiskRipper  
 
-change the "Document Root" to /var/www/DiskRipper
+set permissions for Ripping folder (2 users need permissions, the user ripping disks and www-data):  
+option 1 (permissions for all):  
+sudo chmod -R 0777 /var/www/DiskRipper  
+  
+option 2 (specific permissions):  
+sudo chmod -R 0775 /var/www/DiskRipper  
+sudo chown -R www-data:www-data /var/www/DiskRipper   
+sudo usermod -a -G www-data {USERNAME}   
+
+where {USERNAME} is the user you are logged in with and will be running the ripping software with  
+
+
+git clone git://github.com/elcabong/ace-encode-web.git /var/www/DiskRipper  
+
+for ubuntu 14+, or if this is the only web service this server is hosting, you will need to change the   
+default000.conf virtual host to point to this directory, or make a new specific virtual host.  
+this is because there are hard coded paths in the /ace-encode/ files, the path must be  /var/www/DiskRipper  
+
+sudo cp /etc/apache2/site-available/000-default.conf /etc/apache2/site-available/000-default.conf-bak  
+
+sudo nano /etc/apache2/site-available/000-default.conf  
+
+change the "Document Root" to /var/www/DiskRipper  
 
 
 
@@ -59,17 +82,7 @@ change the "Document Root" to /var/www/DiskRipper
 
 cd /var/www/DiskRipper/ace-encode  
 
-sudo chmod +x ./*  
-
-
-set permissions for Ripping folder (2 users need permissions, the user ripping disks and www-data):  
-option 1 (permissions for all):
-sudo chmod -R 0777 /var/www/DiskRipper 
-  
-option 2 (specific permissions):  
-sudo chmod -R 0775 /var/www/DiskRipper  
-sudo chown -R www-data:www-data /var/www/DiskRipper 
-sudo usermod -a -G www-data {USERNAME} 
+sudo chmod +x ./* 
 
 
 
@@ -83,9 +96,12 @@ sudo chmod +x /usr/share/applications/ripdvd.desktop
 sudo chmod +x /usr/share/applications/ripbluray.desktop  
 
 
-configre ace-encode  
+configure ace-encode   //  default options should be fine in most cases
 
 sudo nano ./settings.conf  
+
+
+this will add auto play options on disc insert
 
 sudo nano ~/.local/share/applications/mimeapps.list  
 And add the following at the bottom of the file:  
@@ -94,7 +110,7 @@ And add the following at the bottom of the file:
 [Default Applications]  
 x-content/audio-cdda=ripcd.desktop;  
 x-content/video-dvd=ripdvd.desktop;  
-x-content/video-bluray=ripbluray.desktop  
+x-content/video-bluray=ripbluray.desktop;    
 [Added Associations]  
 x-content/audio-cdda=ripcd.desktop;  
 x-content/video-dvd=ripdvd.desktop;  
