@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Rip DVD
 Comment=This will start the automated DVD ripping process
-Exec=/var/www/html/DiskRipper/ace-encode/dvd-rip
-TryExec=/var/www/html/DiskRipper/ace-encode/dvd-rip
+Exec=/var/www/DiskRipper/ace-encode/dvd-rip
+TryExec=/var/www/DiskRipper/ace-encode/dvd-rip
 MimeType=x-content/video-dvd
 Type=Application

@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=Rip Blu-Ray
 Comment=This will start the automated Blu-Ray ripping process
-Exec=/var/www/html/DiskRipper/ace-encode/bluray-rip
-TryExec=/var/www/html/DiskRipper/ace-encode/bluray-rip
+Exec=/var/www/DiskRipper/ace-encode/bluray-rip
+TryExec=/var/www/DiskRipper/ace-encode/bluray-rip
 MimeType=x-content/video-bluray
 Type=Application

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # READ IN SETTINGS FILE
-CONFIG_FILE=/var/www/html/DiskRipper/ace-encode/settings.conf 
+CONFIG_FILE=/var/www/DiskRipper/ace-encode/settings.conf 
 
 if [[ -f $CONFIG_FILE ]]; then
         . $CONFIG_FILE
