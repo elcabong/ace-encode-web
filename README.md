@@ -24,13 +24,16 @@ wget http://www.makemkv.com/download/makemkv-oss-1.8.6.tar.gz
 tar xvzf makemkv-oss-1.8.6.tar.gz  
 tar xvzf makemkv-bin-1.8.6.tar.gz  
 
-cd makemkv-oss-1.8.6  
-make -f makefile.linux  
-sudo make -f makefile.linux install  
+
+cd makemkv-oss-1.8.6 
+bash configure 
+make -f Makefile  
+sudo make -f Makefile install  
+
 
 cd makemkv-bin-1.8.6  
-make -f makefile.linux  
-sudo make -f makefile.linux install  
+make -f Makefile  
+sudo make -f Makefile install  
 
 
 
@@ -44,7 +47,15 @@ sudo service apache2 restart
 
 git clone git://github.com/elcabong/ace-encode-web.git /var/www/DiskRipper
 
-for ubuntu 14+ you will need to change the default000.conf virtual host to point to this directory, or make a new specific virtual host.  this is because ther eare hard coded paths in the /ace-encode/ files
+for ubuntu 14+, or if this is the only web service this server is hosting, you will need to change the default000.conf virtual host to point to this directory, or make a new specific virtual host.  this is because ther eare hard coded paths in the /ace-encode/ files
+
+sudo nano /etc/apache2/site-available/000-default.conf
+
+change the "Document Root" to /var/www/DiskRipper
+
+
+
+
 
 cd /var/www/DiskRipper/ace-encode  
 
