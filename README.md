@@ -7,7 +7,7 @@ web control for ace-encode
 full install instructions:
 
 pre reqs  
-sudo apt-get install git-core git  
+sudo apt-get install git-core git curl  
 sudo apt-get install abcde cd-discid lame cdparanoia id3 id3v2  
 sudo apt-get install eyed3 python3 python3-eyed3  
 
