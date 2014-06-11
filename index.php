@@ -41,11 +41,11 @@ if(!empty($_GET['automated'])) {
 		// check if multiple videos exists and place hold
 		$heldmovies = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
 				$moviecount = "$autorip/$thefolder/$thesubfolder/*.mkv";
 				if (count(glob($moviecount)) < 2) { continue; }
@@ -71,11 +71,11 @@ if(!empty($_GET['automated'])) {
 		
 		$ripping = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				$hasIdentity = 0;
@@ -125,11 +125,11 @@ if(!empty($_GET['automated'])) {
 
 		$needsprocess = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
@@ -181,11 +181,11 @@ if(!empty($_GET['automated'])) {
 
 		$hasprocess = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
@@ -239,11 +239,11 @@ if(!empty($_GET['automated'])) {
 		
 		$waitingforencode = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music" || $thefolder == "Blackhole") { continue; }
 			$folderpath = $autorip . "/$thefolder";
 			$subfolders = scandir($folderpath);
 			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }				
 				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed")) { continue; }
 				if(file_exists("$autorip/$thefolder/$thesubfolder/encoding")) { continue; }
@@ -291,7 +291,7 @@ if(!empty($_GET['automated'])) {
 	/*
 		$waitformove = 0;
 		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".." || $thefolder == "") { continue; }
+			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "") { continue; }
 			if(!file_exists("$autorip/$thefolder/$thefolder.ready")) { continue; }
 			$waitformove++;
 			if($waitformove == 1) { echo "<li class='title'><span class='label'><b>Waiting to be Moved:</b></span></li>"; }			
@@ -302,7 +302,7 @@ if(!empty($_GET['automated'])) {
 		$folderpath = "$autorip/Music";
 		$subfolders = scandir($folderpath);
 		foreach($subfolders as $thesubfolder) {
-			if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+			if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 			$musiccheck++;
 			if($musiccheck == 1) { 
 				echo "<li class='title'><span class='label'><b>Music:</b></span></li>";
@@ -319,10 +319,10 @@ if(!empty($_GET['automated'])) {
 		$folderpath = "$autorip/Blackhole";
 		$subfolders = scandir($folderpath);
 		foreach($subfolders as $thesubfolder) {
-			if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+			if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 			$newsubfolders = scandir("$folderpath/$thesubfolder");
 			foreach($newsubfolders as $abouttomove) {
-				if($abouttomove == "." || $abouttomove == ".." || $abouttomove == "") { continue; }
+				if($abouttomove == "." || $abouttomove == ".htaccess" || $abouttomove == ".." || $abouttomove == "") { continue; }
 				$blackholecheck++;
 				if($blackholecheck == 1) {
 					echo "<li class='title'><span class='label'><b>Blackhole Directory:</b></span></li>";
@@ -336,7 +336,7 @@ if(!empty($_GET['automated'])) {
 		$folderpath = $autorip . "/logs";
 		$subfolders = scandir($folderpath);
 		foreach($subfolders as $thesubfolder) {
-			if($thesubfolder == "." || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+			if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
 			$logcheck++;
 			if($logcheck == 1) { 
 				echo "<li class='title'><span class='label'><b>Logs:</b></span></li>";
