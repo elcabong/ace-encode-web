@@ -4,7 +4,12 @@ require "functions.php";
 if(!empty($_GET['automated'])) {
 	exit;
 }
-?>
+if(isset($_GET['remotecheck']) && $_GET['remotecheck']=='') {
+
+} elseif(isset($_GET['remotecheck'])){
+$remotecheck = $_GET['remotecheck'];
+}
+if(!isset($remotecheck)) {?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,39 +39,39 @@ if(!empty($_GET['automated'])) {
 <body>
 	<ul class="links" style="float:left;padding: 50px 0 20px;">
 	<li class='title'><h2><span class='label'><b><?php echo $programtitle; ?></b></span></h2></li>
+	<?php } ?>
 	<?php
 		$foldernames = scandir($autorip);	
 
-		
-		// check if multiple videos exists and place hold
-		$heldmovies = 0;
-		foreach($foldernames as $thefolder) {
-			if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
-			$folderpath = $autorip . "/$thefolder";
-			$subfolders = scandir($folderpath);
-			foreach($subfolders as $thesubfolder) {
-				if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
-				if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
-				$moviecount = "$autorip/$thefolder/$thesubfolder/*.mkv";
-				if (count(glob($moviecount)) < 2) { continue; }
-				$heldmovies++;
-				if($heldmovies == 1) {
-					echo "<li class='title'><span class='label'><b>Multiple Video Files Found:</b></span></li>";
-				}		
-				$fullpath = "$autorip/$thefolder/$thesubfolder";
-				echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
-				$files = glob("$fullpath/*.mkv");
-				foreach($files as $file) {
-					$file = substr($file, strrpos($file, "/") + 1);
-				 echo "<a href='$fullpath/$file' target='_blank' class='log-file'>$file</a>";
-				 }		
-				echo "</li>";
+		if(!isset($remotecheck)) {
+			// check if multiple videos exists and place hold
+			$heldmovies = 0;
+			foreach($foldernames as $thefolder) {
+				if($thefolder == "." || $thefolder == ".htaccess" || $thefolder == ".." || $thefolder == "" || $thefolder == "logs" || $thefolder == "Music") { continue; }
+				$folderpath = $autorip . "/$thefolder";
+				$subfolders = scandir($folderpath);
+				foreach($subfolders as $thesubfolder) {
+					if($thesubfolder == "." || $thesubfolder == ".htaccess" || $thesubfolder == ".." || $thesubfolder == "") { continue; }
+					if(!file_exists("$autorip/$thefolder/$thesubfolder/rip.completed.hold")) { continue; }
+					$moviecount = "$autorip/$thefolder/$thesubfolder/*.mkv";
+					if (count(glob($moviecount)) < 2) { continue; }
+					$heldmovies++;
+					if($heldmovies == 1) {
+						echo "<li class='title'><span class='label'><b>Multiple Video Files Found:</b></span></li>";
+					}		
+					$fullpath = "$autorip/$thefolder/$thesubfolder";
+					echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
+					$files = glob("$fullpath/*.mkv");
+					foreach($files as $file) {
+						$file = substr($file, strrpos($file, "/") + 1);
+					 echo "<a href='$fullpath/$file' target='_blank' class='log-file'>$file</a>";
+					 }		
+					echo "</li>";
 
-			
-			}
-		}		
-		
-		
+				
+				}
+			}		
+		}
 		
 		
 		$ripping = 0;
@@ -83,16 +88,31 @@ if(!empty($_GET['automated'])) {
 				if (count(glob($identitycheck)) > 0) { $hasIdentity = 1; }	
 				$ripping++;
 				if($ripping == 1) {
-					echo "<li class='title'><span class='label'><b>Currently Ripping:</b></span></li>";
+					if(isset($remotecheck) && $remotecheck=='currentlyripping') {
+						echo "Ripping: ";
+					} else {
+						echo "<li class='title'><span class='label'><b>Currently Ripping:</b></span></li>";
+					}	
+				} elseif(isset($remotecheck) && $remotecheck=='currentlyripping') {
+					continue;
+					exit;
 				}
 				$thesubfolder = clean("$thesubfolder");
 				if($hasIdentity == 0) {
+					if(isset($remotecheck) && $remotecheck=='currentlyripping') {
+						echo "$thefolder/$thesubfolder";
+						exit;
+					}
 					echo "<li><span class='label'>$thefolder/$thesubfolder</span>";
 				} else {
 					foreach(glob($identitycheck) as $file) {
 						$file = substr($file, strrpos($file, "/") + 1);
 						$file = str_replace(".identity","",$file);
 					 }
+					if(isset($remotecheck) && $remotecheck=='currentlyripping') {
+						echo "$thefolder/$file";
+						exit;
+					}					 
 					echo "<li><span class='label'>$thefolder/$file</span>";				
 				}
 				echo "<img src='./img/loading.gif' />";
@@ -120,6 +140,12 @@ if(!empty($_GET['automated'])) {
 					 <option value='720L'>720 Low</option>
 					 </select>";
 				echo "</li>";
+			}
+		}	
+		
+		if($ripping == 0) {
+			if(isset($remotecheck) && $remotecheck=='currentlyripping') {
+				exit;
 			}
 		}
 
